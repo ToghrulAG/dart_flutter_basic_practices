@@ -1,4 +1,5 @@
 import 'package:basic_practices/features/characters/data/character_service.dart';
+import 'package:basic_practices/features/characters/presentation/character_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/characters_bloc.dart';
@@ -25,6 +26,16 @@ class CharactersScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final character = state.characters[index];
                   return ListTile(
+                    leading: ClipOval(
+                      child: Image.network(character.image, width: 50, height: 50,),
+                    ),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            CharacterDetailsScreen(character: character),
+                      ),
+                    ),
                     title: Text(character.name),
                     subtitle: Text(character.status),
                   );
