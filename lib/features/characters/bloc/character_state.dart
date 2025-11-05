@@ -1,19 +1,19 @@
 import '../data/character_model.dart';
 
-abstract class CharacterState {}
+abstract class CharactersState {}
 
-class CharacterInitial extends CharacterState {}
+class CharactersInitial extends CharactersState {}
 
-class CharacterLoading extends CharacterState {}
+class CharactersLoading extends CharactersState {}
 
-class CharacterLoaded extends CharacterState {
+class CharactersLoaded extends CharactersState {
   final List<CharacterModel> characters;
 
-  CharacterLoaded(this.characters);
+  CharactersLoaded(this.characters); // Edited constructor
 }
 
-class CharacterError extends CharacterState {
+class CharactersError extends CharactersState {
   final String message;
   
-  CharacterError(this.message);
+  CharactersError(this.message);
 }
