@@ -6,11 +6,10 @@ import 'package:basic_practices/routes/routes.dart';
 import 'core/presentation/home_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 void main() {
   runApp(
     BlocProvider(
-      create: (_) => CharactersBloc(CharacterService())..add(LoadCharactersEvent()),
+      create: (_) => CharactersBloc(service: CharacterService())..add(LoadCharactersEvent()),
       child: const PracticeApp(),
     ),
   );
