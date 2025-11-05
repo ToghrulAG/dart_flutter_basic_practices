@@ -1,53 +1,115 @@
-import 'package:basic_practices/features/characters/data/character_service.dart';
-import 'package:basic_practices/features/characters/presentation/character_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/characters_bloc.dart';
 import '../bloc/character_event.dart';
 import '../bloc/character_state.dart';
+import '../data/character_service.dart';
+import '../data/character_model.dart';
 
-class CharactersScreen extends StatelessWidget {
+class CharactersScreen extends StatefulWidget {
   const CharactersScreen({super.key});
 
   @override
+  State<CharactersScreen> createState() => _CharactersScreenState();
+}
+
+class _CharactersScreenState extends State<CharactersScreen> {
+  late CharactersBloc _bloc;
+  final ScrollController _scrollController = ScrollController();
+
+  void initState() {
+    super.initState();
+
+    _bloc = CharactersBloc(service: CharacterService());
+    _bloc.add(LoadCharactersEvent());
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels >=
+          _scrollController.position.maxScrollExtent - 200) {
+        _bloc.add(LoadCharactersEvent());
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    _bloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) =>
-          CharactersBloc(CharacterService())..add(LoadCharactersEvent()),
+    return BlocProvider.value(
+      value: _bloc,
       child: Scaffold(
-        appBar: AppBar(title: const Text('Characters')),
-        body: BlocBuilder<CharactersBloc, CharacterState>(
+        appBar: AppBar(
+          title: Text('Ricky Morty Characters'),
+          backgroundColor: Colors.green,
+        ),
+        body: BlocBuilder<CharactersBloc, CharactersState>(
           builder: (context, state) {
-            if (state is CharacterLoading) {
+            if (state is CharactersInitial || state is CharactersLoading) {
               return const Center(child: CircularProgressIndicator());
-            } else if (state is CharacterLoaded) {
+            }
+            if (state is CharactersError) {
+              return Center(child: Text('Ошибка: ${state.message}'));
+            }
+            if (state is CharactersLoaded) {
+              final characters = state.characters;
+
               return ListView.builder(
-                itemCount: state.characters.length,
+                controller: _scrollController,
+                itemCount: characters.length,
                 itemBuilder: (context, index) {
-                  final character = state.characters[index];
-                  return ListTile(
-                    leading: ClipOval(
-                      child: Image.network(character.image, width: 50, height: 50,),
-                    ),
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            CharacterDetailsScreen(character: character),
-                      ),
-                    ),
-                    title: Text(character.name),
-                    subtitle: Text(character.status),
-                  );
+                  final character = characters[index];
+                  return _buildCharacterItem(character);
                 },
               );
-            } else if (state is CharacterError) {
-              return Center(child: Text('Error: ${state.message}'));
             }
-            return const Center(child: Text('Press button to load characters'));
+            return const SizedBox.shrink();
           },
         ),
       ),
     );
   }
 }
+
+Widget _buildCharacterItem(CharacterModel character) {
+  return Card(
+    margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    child: ListTile(
+      leading: CircleAvatar(backgroundImage: NetworkImage(character.image)),
+      title: Text(character.name),
+      subtitle: Text('${character.species} - ${character.status}'),
+    ),
+  );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
