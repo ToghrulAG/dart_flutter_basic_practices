@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 void main() {
   runApp(
     BlocProvider(
-      create: (_) => CharactersBloc(service: CharacterService())..add(LoadCharactersEvent()),
+      create: (_) => CharactersBloc(service: CharactersService())..add(LoadCharactersEvent()),
       child: const PracticeApp(),
     ),
   );
