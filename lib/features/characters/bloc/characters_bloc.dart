@@ -1,4 +1,4 @@
-import 'package:basic_practices/features/characters/data/character_model.dart';
+import '../data/character_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../data/character_service.dart';
 import 'character_event.dart';
