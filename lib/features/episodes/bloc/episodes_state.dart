@@ -7,7 +7,7 @@ class EpisodesInitial extends EpisodesState {}
 class EpisodesLoading extends EpisodesState {}
 
 class EpisodesLoaded extends EpisodesState {
-  final List<EpisodeModel> episodes;
+  final List<EpisodesModel> episodes;
 
   EpisodesLoaded(this.episodes);
 }
