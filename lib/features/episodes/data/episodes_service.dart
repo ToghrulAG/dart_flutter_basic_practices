@@ -2,7 +2,7 @@ import 'dart:convert';
 import '../../episodes/data/episodes_model.dart';
 import 'package:http/http.dart' as http;
 
-class EpisodesService {
+class EpisodeService {
   final String baseUrl = 'https://rickandmortyapi.com/api/episode';
 
   Future<Map<String, dynamic>> fetchEpisodes({int page = 1}) async {
@@ -12,7 +12,7 @@ class EpisodesService {
       final data = json.decode(response.body);
 
       final List episodesJson = data['results'];
-      final episodes = episodesJson.map((e) => EpisodeModel.fromJson(e)).toList();
+      final episodes = episodesJson.map((e) => EpisodesModel.fromJson(e)).toList();
 
       return {'info': data['info'], 'episdodes': episodes};
       
