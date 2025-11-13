@@ -1,3 +1,3 @@
-abstract class CharacterEvent {}
+abstract class CharactersEvent {}
 
-class LoadCharactersEvent extends CharacterEvent {}
+class LoadCharactersEvent extends CharactersEvent {}
