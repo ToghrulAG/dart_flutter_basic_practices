@@ -20,7 +20,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
   void initState() {
     super.initState();
 
-    _bloc = CharactersBloc(service: CharacterService());
+    _bloc = CharactersBloc(service: CharactersService());
     _bloc.add(LoadCharactersEvent());
 
     _scrollController.addListener(() {
@@ -75,7 +75,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
   }
 }
 
-Widget _buildCharacterItem(CharacterModel character) {
+Widget _buildCharacterItem(CharactersModel character) {
   return Card(
     margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

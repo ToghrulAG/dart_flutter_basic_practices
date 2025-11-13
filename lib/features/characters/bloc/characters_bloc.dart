@@ -4,9 +4,9 @@ import '../data/character_service.dart';
 import 'character_event.dart';
 import 'character_state.dart';
 
-class CharactersBloc extends Bloc<CharacterEvent, CharactersState>{
-  final CharacterService service;
-  final List <CharacterModel> _allCharacters = [];
+class CharactersBloc extends Bloc<CharactersEvent, CharactersState>{
+  final CharactersService service;
+  final List <CharactersModel> _allCharacters = [];
 
   int _currentPage = 1;
   bool _isLoading = false;
@@ -26,7 +26,7 @@ class CharactersBloc extends Bloc<CharacterEvent, CharactersState>{
 
       try {
         final response = await service.fetchCharacters(page: _currentPage);
-        final newCharacters = response['characters'] as List<CharacterModel>;
+        final newCharacters = response['characters'] as List<CharactersModel>;
         _hasNextPage = response['hasNextPage'] as bool;
         _allCharacters.addAll(newCharacters);
         _currentPage ++;

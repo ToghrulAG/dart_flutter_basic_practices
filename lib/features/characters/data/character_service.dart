@@ -2,7 +2,7 @@ import 'dart:convert';
 import './character_model.dart';
 import 'package:http/http.dart' as http;
 
-class CharacterService {
+class CharactersService {
   final String baseUrl = 'https://rickandmortyapi.com/api';
 
   Future<Map<String, dynamic>> fetchCharacters({int page = 1}) async {
@@ -15,7 +15,7 @@ class CharacterService {
 
       return {
         'characters': characters
-            .map((char) => CharacterModel.fromJson(char))
+            .map((char) => CharactersModel.fromJson(char))
             .toList(),
         'hasNextPage': data['info']['next'] != null,
       };

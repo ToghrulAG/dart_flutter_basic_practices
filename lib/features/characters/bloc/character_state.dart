@@ -7,7 +7,7 @@ class CharactersInitial extends CharactersState {}
 class CharactersLoading extends CharactersState {}
 
 class CharactersLoaded extends CharactersState {
-  final List<CharacterModel> characters;
+  final List<CharactersModel> characters;
 
   CharactersLoaded(this.characters); // Edited constructor
 }
