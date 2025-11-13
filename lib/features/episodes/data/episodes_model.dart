@@ -1,4 +1,4 @@
-class Episode {
+class EpisodeModel {
   final int id;
   final String name;
   final DateTime airDate;
@@ -6,7 +6,7 @@ class Episode {
   final String episode;
   final DateTime created;
 
-  Episode({
+  EpisodeModel({
     required this.id,
     required this.name,
     required this.airDate,
@@ -14,8 +14,8 @@ class Episode {
     required this.episode,
     required this.created,
   });
-  factory Episode.fromJson(Map<String, dynamic> json) {
-    return Episode(
+  factory EpisodeModel.fromJson(Map<String, dynamic> json) {
+    return EpisodeModel(
       id: json['id'],
       name: json['name'],
       airDate: json['airDate'],
