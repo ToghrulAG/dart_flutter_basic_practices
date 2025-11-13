@@ -12,9 +12,10 @@ class EpisodesService {
       final data = json.decode(response.body);
 
       final List episodesJson = data['results'];
-      final episodes = episodesJson.map((e) => Episode.fromJson(e)).toList();
+      final episodes = episodesJson.map((e) => EpisodeModel.fromJson(e)).toList();
 
       return {'info': data['info'], 'episdodes': episodes};
+      
     } else {
       throw Exception('Failed to load episodes');
     }
